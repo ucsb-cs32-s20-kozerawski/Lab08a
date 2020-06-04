@@ -9,6 +9,15 @@
 #include <iostream>
 
 using namespace std; 
+template<class T>
+void destroy(T elem) {
+	// do nothing
+}
+template <class T>
+void destroy(T* elem) {
+	// delete the pointer type
+	delete elem;
+}
 
 
 template <class T>
@@ -54,8 +63,8 @@ bool SimpleList<T> :: empty() const{
 
 template <class T>
 T SimpleList<T> :: first() const throw(EmptyListException){
-    if (empty()){
-       throw EmptyListException ();
+    if (numElements == 0){
+       throw EmptyListException();
    
     }
     
@@ -91,12 +100,6 @@ void SimpleList<T> ::insert(T item) throw(FullListException){
     elements[numElements]=item;
 
 }
-template <class T>
-void destroy(T* element) {
-	// delete the pointer type
-	delete element;
-}
-
 
 
 
