@@ -1,3 +1,7 @@
+//Andrea Anez 
+//cs32 Jacob
+// 06/03/2020
+
 #include "SimpleList.h"
 #include "EmptyListException.h"
 #include "FullListException.h"
@@ -19,12 +23,16 @@ template <class T>
 
 SimpleList<T>::~SimpleList()
 {
+    for (int i = 0; i< numElements; i++){
+        destroy(elements[i]);
+    }
     delete[] elements;
 }
 
 template <class T>
 T SimpleList<T> :: at(int index) const throw(InvalidIndexException){
-    if (index > CAPACITY || index<0 || index >numElements-1){
+    // should it be numelements -1 or just numelements 
+    if ( index<0 || index >numElements-1){
 
         throw InvalidIndexException();
 
@@ -34,7 +42,7 @@ T SimpleList<T> :: at(int index) const throw(InvalidIndexException){
     }
 
 
-// why am I getting red 
+
 template <class T>
 
 bool SimpleList<T> :: empty() const{
@@ -75,14 +83,22 @@ int SimpleList<T> :: getNumElements() const{
 template <class T>
 
 void SimpleList<T> ::insert(T item) throw(FullListException){
-    if (getNumElements() == CAPACITY){
+    if (numElements == CAPACITY){
        
         throw FullListException();
 
     }
-    elements[getNumElements()]=item;
+    elements[numElements]=item;
 
 }
+template <class T>
+void destroy(T* element) {
+	// delete the pointer type
+	delete element;
+}
+
+
+
 
 template <class T>
 
@@ -95,9 +111,10 @@ void SimpleList<T> :: remove(int index) throw (InvalidIndexException, EmptyListE
         throw InvalidIndexException();
 
     }
-
-    for (int i = index; i<=getNumElements()-1; i--){
+    destroy(elements[index]);
+    for(int i = index; i<numElements-1;i++){
         elements[i] = elements[i+1];
+        
     }
     numElements += -1;
 
