@@ -67,14 +67,13 @@ T SimpleList<T> :: first() const throw(EmptyListException){
        throw EmptyListException();
    
     }
-    
         return elements[0];
     
 }
 
 template <class T>
 T SimpleList<T> :: last() const throw (EmptyListException){
-    if (empty()){
+    if (numElements == 0){
        
         throw EmptyListException();
     }
@@ -95,22 +94,19 @@ void SimpleList<T> ::insert(T item) throw(FullListException){
     if (numElements == CAPACITY){
        
         throw FullListException();
-
     }
     elements[numElements]=item;
-
+    numElements +=1;
 }
-
 
 
 template <class T>
 
 void SimpleList<T> :: remove(int index) throw (InvalidIndexException, EmptyListException){
-    if (empty ()){
+    if (numElements == 0){
         throw EmptyListException();
     }
-    if (index > CAPACITY || index < 0|| index >numElements-1){
-
+    if (index < 0|| index >numElements-1){
         throw InvalidIndexException();
 
     }
